@@ -63,6 +63,10 @@ class HighLevelPacket
         /* Stats variables */
         double avg_network_latency;
         unsigned int hop_count;
+	//Sharda
+	unsigned int ltu; // levels traversed up
+	unsigned int max_levels; // for fat tree
+
         unsigned int stat_memory_serviced_time;
         ullint req_start_time;
         ullint waiting_in_ni;

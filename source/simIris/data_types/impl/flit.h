@@ -114,6 +114,10 @@ class HeadFlit : public Flit
         ullint req_start_time;
         ullint waiting_in_ni;
 
+	//Sharda
+	unsigned int ltu; //for fat tree - level traveled up
+	unsigned int max_levels;
+
     protected:
 
     private:

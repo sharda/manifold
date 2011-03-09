@@ -47,6 +47,8 @@ HighLevelPacket::HighLevelPacket ()
     req_start_time = 0;
     waiting_in_ni = 0;
     stat_memory_serviced_time = 0;
+    ltu = 0;
+    max_levels= 0;
 }  /* -----  end of method HighLevelPacket::HighLevelPacket  (constructor)  ----- */
 
 HighLevelPacket::~HighLevelPacket()

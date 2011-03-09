@@ -130,12 +130,14 @@ RouterVcMP::set_no_nodes( uint nodes )
 void
 RouterVcMP::set_grid_x_location( uint port, uint x_node, uint value)
 {
+    cout << " Port = " << port << "  x_node = " << x_node << "  value = " << value << endl;
     decoders[port].grid_xloc[x_node]= value;
 }
 
 void
 RouterVcMP::set_grid_y_location( uint port, uint y_node, uint value)
 {
+    cout << " Port = " << port << "  y_node = " << y_node << "  value = " << value << endl;
     decoders[port].grid_yloc[y_node]= value;
 }
 
@@ -643,6 +645,8 @@ RouterVcMP::do_switch_traversal()
                     HeadFlit* hf = static_cast<HeadFlit*>(f);
                     hf->hop_count++;
                     //                    cout << "  " << hf->addr;
+		    //Sharda
+		    hf->ltu++;
                 }
                 if( f->type == TAIL || f->is_single_flit_pkt )
                 {

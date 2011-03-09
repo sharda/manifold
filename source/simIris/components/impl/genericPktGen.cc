@@ -236,7 +236,15 @@ GenericPktGen::handle_out_pull_event ( IrisEvent* e )
             hlp->sent_time = (ullint)Simulator::Now();
             uint pkt_len = pkt_payload_length; //1*max_phy_link_bits; //Static for now but can use gsl_ran
             hlp->data_payload_length = pkt_len;	
-            hlp->msg_class = terminal_msg_class;	
+            hlp->msg_class = terminal_msg_class;
+	    // applies to fat tree only  
+	    uint temp = hlp->source ^ hlp->destination;
+	    while ( temp & 0xFFFF )
+	    {
+		temp = temp >> 1;
+		hlp->max_levels++;
+	    }
+	    hlp->ltu = 0;
             /* 
                for ( uint i=0 ; i < pkt_len ; i++ )
                {

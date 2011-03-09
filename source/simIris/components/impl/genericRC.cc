@@ -442,6 +442,48 @@ GenericRC::route_odd_even(HeadFlit* hf)
 }
 
 void
+GenericRC::route_up_down(HeadFlit* hf)
+{
+    cout << "In up down routing decoder function\n";
+    uint src = hf->src_address;
+    uint dest = hf->dst_address;
+    uint levels_traveled = hf->ltu;
+    uint mask = 0xFFFF;
+    uint new_mask;
+    uint oport = -1;
+    bool is_up = false;
+    uint my_level;
+
+    if ( node_ip >= 0 && node_ip < 4 )
+	my_level = 0;
+    else if ( node_ip >= 4 && node_ip < 8 )
+	my_level = 1;
+    else if ( node_ip >= 8 && node_ip < 12 )
+	my_level = 2;
+
+    //if ( dest >= node_ip * radix/2 && dest < (node_ip+1)*radix/2 ) 
+    if ( levels_traveled < hf->max_levels ) 
+	is_up = true;
+
+    if (is_up)
+    {
+	new_mask = mask & (int)pow(2, my_level);
+	if ( (dest & new_mask) == 0 )
+		oport = 2;
+	else
+		oport = 3;
+    }
+    else
+    {
+	new_mask = mask & (int)pow(2, my_level);
+	if ( (dest & new_mask) == 0 )
+		oport = 1;
+	else
+		oport = 0;
+    }
+}
+
+void
 GenericRC::push (Flit* f, uint ch )
 {
     if(ch > addresses.size())
@@ -513,6 +555,12 @@ GenericRC::push (Flit* f, uint ch )
             possible_out_vcs.clear();
             route_ring( header );
         }
+	else if ( rc_method == UP_DOWN )
+	{
+            possible_out_ports.clear();
+            possible_out_vcs.clear();
+	    route_up_down( header );
+	}
         else
         {
             addresses [ch].out_port = route_x_y(header->dst_address);

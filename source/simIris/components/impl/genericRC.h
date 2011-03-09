@@ -66,6 +66,7 @@ class GenericRC
         void route_north_last(HeadFlit* hf);
         void route_north_last_non_minimal(HeadFlit* hf);
         void route_odd_even(HeadFlit* hf);
+        void route_up_down(HeadFlit* hf);
         vector < uint > possible_out_ports;
         vector < uint > possible_out_vcs;
 

@@ -41,11 +41,12 @@ class Visual
 {
 	public:
 		Visual();
-		Visual(Topology*, int nodes, int links, int grid_size, string, string, int , int, double, double, int, int, double);
+		Visual(Topology*, int nodes, int switches, int radix, int level, int links, int grid_size, string, string, int , int, double, double, int, int, double);
 		~Visual();
 		void create_new_connections();
 		void create_graphml_mesh();
 		void create_graphml_torus();
+		void create_graphml_fat_tree();
 		void create_graphml();
 		void add_entry(int i, int j, int x, int y, int interface_id, int processor_id );
 		vector< link_connection* > new_east_links;
@@ -64,6 +65,9 @@ class Visual
 		unsigned int nodes; // number of nodes in the topology
 		unsigned int links; // number of links in the topology
 		unsigned int grid_size; // grid size - required to create links
+		unsigned int switches;
+		unsigned int rad;
+		unsigned int lev;
 		link_connection ** link_ptr;
 		string type; // type of network - required to set grid layout
 		string rtr_type;
